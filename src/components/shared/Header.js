@@ -8,6 +8,11 @@ const linkStyle = {
 }
 const authenticatedOptions = (
 	<>
+        <Nav.Link>
+            <Link to="/addPet" style={linkStyle}>
+                Add a Pet
+            </Link>
+        </Nav.Link>
 		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password

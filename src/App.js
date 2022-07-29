@@ -76,7 +76,12 @@ const App = () => {
                 />
                 <Route
                     path="/addPet"
-                    element={<PetForm/>}
+                    element={
+                        // requireAuth lets you control which routes are allowed to be hit based on authentication status (signed in, etc.)
+                        <RequireAuth user={user}>
+                            <PetForm/>
+                        </RequireAuth>
+                    }
                 />
             </Routes>
         {msgAlerts.map((msgAlert) => (
