@@ -2,7 +2,11 @@ import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const PetForm = () => {
+const PetForm = (props) => {
+    // get the state of a pet from the container component from the props
+    const { pet, handleChange } = props
+
+    // state variables
     const [name, setName] = useState('')
     const [type, setType] = useState('')
     const [age, setAge] = useState('')
@@ -19,7 +23,7 @@ const PetForm = () => {
                             required
                             type='text'
                             name='name'
-                            value={name}
+                            value={pet.name}
                             placeholder='Enter name'
                             onChange={e => setName(e.target.value)}
                         />
@@ -29,7 +33,7 @@ const PetForm = () => {
                         <Form.Control
                             required
                             name='type'
-                            value={type}
+                            value={pet.type}
                             type='text'
                             placeholder='Enter type'
                             onChange={e => setType(e.target.value)}
@@ -40,7 +44,7 @@ const PetForm = () => {
                         <Form.Control
                             required
                             name='age'
-                            value={age}
+                            value={pet.age}
                             type='text'
                             placeholder='Enter age'
                             onChange={e => setAge(e.target.value)}
@@ -52,7 +56,7 @@ const PetForm = () => {
                             required
                             name='adoptable'
                             type='checkbox'
-                            checked={adoptable}
+                            checked={pet.adoptable}
                             // placeholder='Enter age'
                             onChange={e => setAdoptable(!adoptable)}
                         />
