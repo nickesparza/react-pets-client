@@ -4,12 +4,12 @@ This is a client for the express pets app that will allow users to view and crea
 
 ## User Stories
 As a user, I want to be able to:
-* create an account
-* sign in
-* sign out
-* change my password
-* see all pets
-* see information about a specific pet
+* create an account ✓
+* sign in ✓
+* sign out ✓
+* change my password ✓
+* see all pets ✓
+* see information about a specific pet ✓
 * create a new pet
 * update my pet(s)
 * liberate my pet(s)

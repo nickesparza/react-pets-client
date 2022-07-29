@@ -25,6 +25,7 @@ const PetsIndex = (props) => {
                 })
                 setError(true)
             })
+    // eslint-disable-next-line
     }, [])
 
     if (error) {

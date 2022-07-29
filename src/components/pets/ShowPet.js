@@ -33,6 +33,7 @@ const ShowPet = (props) => {
                 })
                 navigate('/')
             })
+    // eslint-disable-next-line
     }, [])
 
     if (!pet) {
