@@ -8,27 +8,27 @@ const linkStyle = {
 }
 const authenticatedOptions = (
 	<>
-		<Nav.Item>
+		<Nav.Link>
 			<Link to='change-password' style={linkStyle}>
 				Change Password
 			</Link>
-		</Nav.Item>
-		<Nav.Item>
+		</Nav.Link>
+		<Nav.Link>
 			<Link to='sign-out' style={linkStyle}>
 				Sign Out
 			</Link>
-		</Nav.Item>
+		</Nav.Link>
 	</>
 )
 
 const unauthenticatedOptions = (
 	<>
-        <Nav.Item>
+        <Nav.Link>
 		    <Link to='sign-up' style={linkStyle}>Sign Up</Link>
-        </Nav.Item>
-        <Nav.Item>
+        </Nav.Link>
+        <Nav.Link>
 		    <Link to='sign-in' style={linkStyle}>Sign In</Link>
-        </Nav.Item>
+        </Nav.Link>
 	</>
 )
 
@@ -46,7 +46,7 @@ const Header = ({ user }) => (
 	<Navbar bg='primary' variant='dark' expand='md'>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle}>
-                react-auth-template
+                Pets
             </Link>
         </Navbar.Brand>
 		<Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -56,6 +56,7 @@ const Header = ({ user }) => (
 					<span className='navbar-text mr-2'>Welcome, {user.email}</span>
 				)}
 				{alwaysOptions}
+                {/* is there a user? if so, show authenticated options, if not, show unauthenticated */}
 				{user ? authenticatedOptions : unauthenticatedOptions}
 			</Nav>
 		</Navbar.Collapse>
