@@ -14,6 +14,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import ShowPet from './components/pets/ShowPet'
 import PetForm from './components/shared/PetForm'
+import CreatePet from './components/pets/CreatePet'
 
 const App = () => {
 
@@ -79,7 +80,7 @@ const App = () => {
                     element={
                         // requireAuth lets you control which routes are allowed to be hit based on authentication status (signed in, etc.)
                         <RequireAuth user={user}>
-                            <PetForm/>
+                            <CreatePet/>
                         </RequireAuth>
                     }
                 />
