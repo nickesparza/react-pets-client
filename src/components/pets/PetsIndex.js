@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card'
 import { getAllPets } from '../../api/pets'
 import { Link } from 'react-router-dom'
 
+
 const PetsIndex = (props) => {
     const [pets, setPets] = useState(null)
 
@@ -21,8 +22,8 @@ const PetsIndex = (props) => {
         return <p>No pets here. Better add some.</p>
     }
 
-    const allPets = pets.map((pet, index) => (
-        <Card style={{width: '18rem'}}>
+    const allPets = pets.map(pet => (
+        <Card style={{width: '24rem', margin: 7}} key={pet.id}>
             <Card.Header>{ pet.fullTitle }</Card.Header>
             <Card.Body>
                 <Card.Text>
@@ -32,10 +33,18 @@ const PetsIndex = (props) => {
         </Card>
     ))
     
+    // style for the card containers
+    const cardContainerStyle = {
+        display: 'flex',
+        flexFlow: 'row wrap',
+        justifyContent: 'center',
+    }
+
     return (
         <>
-        {/* <h1>This is the pets index component.</h1> */}
-        {allPets}
+        <div style={cardContainerStyle}>
+            {allPets}
+        </div>
         </>
     )
 }
