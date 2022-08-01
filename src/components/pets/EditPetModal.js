@@ -1,22 +1,15 @@
-import PetForm from "../shared/PetForm"
-import { createPet } from "../../api/pets"
-import { useNavigate } from "react-router-dom"
-import { useState } from "react"
-import messages from "../shared/AutoDismissAlert/messages"
+import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button, Modal } from 'react-bootstrap'
+import PetForm from '../shared/PetForm'
+import messages from '../shared/AutoDismissAlert/messages'
 
-const CreatePet = (props) => {
-    console.log('these are the props in CreatePet', props)
-    const { msgAlert, user } = props
-    const [pet, setPet] = useState({
-        name: '',
-        type: '',
-        age: '',
-        adoptable: false
-    })
+const EditPetModal = (props) => {
+    const {msgAlert, user, show, handleClose, updatePet, triggerRefresh} = props
+
+    const [pet, setPet] = useState(props.pet)
 
     const navigate = useNavigate()
-
-    console.log('this is pet in CreatePet', pet)
 
     const handleChange = (e) => {
         setPet(prevPet => {
@@ -48,32 +41,44 @@ const CreatePet = (props) => {
         })
     }
 
-    // add a handleSubmit function here to make an API request and handle the response
     const handleSubmit = (e) => {
         e.preventDefault()
-        createPet(user, pet)
+        updatePet(user, pet)
             // if creation is successful, navigate to the show page and send a message to the user
-            .then(res => { navigate(`/pets/${res.data.pet.id}`)})
+            .then(() => handleClose())
             .then(() => {
                 msgAlert({
                     heading: 'Success!',
-                    message: messages.createPetSuccess,
+                    message: messages.updatePetSuccess,
                     variant: 'success'
                 })
+            })
+            .then(() => {
+                // this triggers a "refresh" of the component by updating the 'updated' hook on the show page to true
+                // this triggers a new API call to 'refresh' the page without actually refreshing and signing the user out
+                // updated is in the ShowPet component's useEffect dependency array so it will run again
+                triggerRefresh()
             })
             // if there is an error, tell the user about it
             .catch(() => {
                 msgAlert({
                     heading: 'Oh no!',
-                    message: messages.createPetFailure,
+                    message: messages.updatePetFailure,
                     variant: 'danger'
                 })
             })
     }
 
     return (
-        <PetForm pet={pet} heading='Add a New Pet' handleChange={handleChange} handleSubmit={handleSubmit}/>
+        <>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton />
+                <Modal.Body>
+                    <PetForm pet={pet} heading="Update Pet" handleChange={handleChange} handleSubmit={handleSubmit}/>
+                </Modal.Body>
+            </Modal>
+        </>
     )
 }
 
-export default CreatePet
+export default EditPetModal

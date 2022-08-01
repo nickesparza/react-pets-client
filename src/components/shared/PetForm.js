@@ -1,72 +1,57 @@
-import { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { Container } from 'react-bootstrap'
 
 const PetForm = (props) => {
     // get the state of a pet from the container component from the props
-    const { pet, handleChange } = props
-
-    // state variables
-    const [name, setName] = useState('')
-    const [type, setType] = useState('')
-    const [age, setAge] = useState('')
-    const [adoptable, setAdoptable] = useState(false)
+    const { pet, heading, handleChange, handleSubmit } = props
 
     return (
-        <div className='row'>
-            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-                <h3>Create a Pet</h3>
-                <Form>
-                    <Form.Group controlId='name'>
-                        <Form.Label htmlFor='name'>Name</Form.Label>
-                        <Form.Control
-                            required
-                            type='text'
-                            name='name'
-                            value={pet.name}
-                            placeholder='Enter name'
-                            onChange={e => setName(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='type'>
-                        <Form.Label htmlFor='type'>Type</Form.Label>
-                        <Form.Control
-                            required
-                            name='type'
-                            value={pet.type}
-                            type='text'
-                            placeholder='Enter type'
-                            onChange={e => setType(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='age'>
-                        <Form.Label htmlFor='age'>Age</Form.Label>
-                        <Form.Control
-                            required
-                            name='age'
-                            value={pet.age}
-                            type='text'
-                            placeholder='Enter age'
-                            onChange={e => setAge(e.target.value)}
-                        />
-                    </Form.Group>
-                    <Form.Group controlId='adoptable'>
-                        <Form.Label htmlFor='adoptable'>Are they Adoptable?</Form.Label>
-                        <Form.Check
-                            required
-                            name='adoptable'
-                            type='checkbox'
-                            checked={pet.adoptable}
-                            // placeholder='Enter age'
-                            onChange={e => setAdoptable(!adoptable)}
-                        />
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
-                        Submit
-                    </Button>
-                </Form>
-            </div>
-        </div>
+        <Container className='justify-content-center'>
+            <h1>{heading}</h1>
+            <Form onSubmit={handleSubmit}>
+                <Form.Group>
+                    <Form.Label htmlFor='name'>Name</Form.Label>
+                    <Form.Control
+                        required
+                        type='text'
+                        name='name'
+                        value={pet.name}
+                        placeholder='Enter name'
+                        onChange={handleChange}
+                    />
+                    <Form.Label htmlFor='type'>Type</Form.Label>
+                    <Form.Control
+                        required
+                        name='type'
+                        value={pet.type}
+                        type='text'
+                        placeholder='Enter type'
+                        onChange={handleChange}
+                    />
+                    <Form.Label htmlFor='age'>Age</Form.Label>
+                    <Form.Control
+                        required
+                        name='age'
+                        value={pet.age}
+                        type='number'
+                        placeholder='Enter age'
+                        onChange={handleChange}
+                    />
+                    <Form.Label htmlFor='adoptable'>Are they Adoptable?</Form.Label>
+                    <Form.Check
+                        name='adoptable'
+                        type='checkbox'
+                        checked={pet.adoptable}
+                        // placeholder='Enter age'
+                        onChange={handleChange}
+                    />
+                </Form.Group>
+                <Button variant='primary' type='submit'>
+                    Submit
+                </Button>
+            </Form>
+        </Container>
     )
 }
 
