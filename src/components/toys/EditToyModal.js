@@ -1,52 +1,46 @@
 import React, {useState} from 'react'
 import { Modal } from 'react-bootstrap'
-import PetForm from '../shared/PetForm'
-import messages from '../shared/AutoDismissAlert/messages'
+import ToyForm from '../shared/ToyForm'
+import { updateToy } from '../../api/toys'
 
-const EditPetModal = (props) => {
-    const {msgAlert, user, show, handleClose, updatePet, triggerRefresh} = props
+const EditToyModal = (props) => {
+    const {msgAlert, pet, user, show, handleClose, triggerRefresh} = props
 
-    const [pet, setPet] = useState(props.pet)
+    const [toy, setToy] = useState(props.toy)
 
     const handleChange = (e) => {
-        setPet(prevPet => {
-            let updatedValue = e.target.value
-            const updatedName = e.target.name
+        setToy(prevToy => {
+            let value = e.target.value
+            const name = e.target.name
 
-            console.log('this is the input type', e.target.type)
-
-            // this condition handles age and converting it to a number
-            if (e.target.type === 'number') {
-                // this looks at the input type of the field and changing it from default (string) to a number
-                updatedValue = parseInt(e.target.value)
-            }
+            // console.log('this is the input type', e.target.type)
 
             // this condition handles the checkbox and changing it to true/false
-            if (updatedName === 'adoptable' && e.target.checked) {
-                updatedValue = true
-            } else if (updatedName ==='adoptable' && !e.target.checked) {
-                updatedValue = false
+            if (name === 'isSqueaky' && e.target.checked) {
+                value = true
+            } else if (name ==='isSqueaky' && !e.target.checked) {
+                value = false
             }
 
-            const updatedPet = {
-                [updatedName]: updatedValue
+            const updatedToy = {
+                [name]: value
             }
             return {
-                ...prevPet,
-                ...updatedPet
+                ...prevToy,
+                ...updatedToy
             }
         })
     }
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        updatePet(user, pet)
+        updateToy(user, pet._id, toy)
             // if creation is successful, navigate to the show page and send a message to the user
             .then(() => handleClose())
             .then(() => {
                 msgAlert({
                     heading: 'Success!',
-                    message: messages.updatePetSuccess,
+                    message: 'Toy was updated.',
                     variant: 'success'
                 })
             })
@@ -60,7 +54,7 @@ const EditPetModal = (props) => {
             .catch(() => {
                 msgAlert({
                     heading: 'Oh no!',
-                    message: messages.updatePetFailure,
+                    message: 'Something went wrong, please try again.',
                     variant: 'danger'
                 })
             })
@@ -71,11 +65,11 @@ const EditPetModal = (props) => {
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton />
                 <Modal.Body>
-                    <PetForm pet={pet} heading="Update Pet" handleChange={handleChange} handleSubmit={handleSubmit}/>
+                    <ToyForm toy={toy} heading="Update Toy" handleChange={handleChange} handleSubmit={handleSubmit}/>
                 </Modal.Body>
             </Modal>
         </>
     )
 }
 
-export default EditPetModal
+export default EditToyModal
